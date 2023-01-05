@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>R/P/S Game</title>
+</head>
+<body>
+  <script>
+    // getComputerChoice is a function that picks a random rock/paper/scissor(R/P/S) for the computer and returns the computerChoice
+    function getComputerChoice(choices) {
+      // below chooses a random index point in the array of choices
+      const randomIndex = Math.floor(Math.random() * choices.length);
+      // below uses the random index to pick an item from the array
+      const computerChoice = choices[randomIndex];
+      // returns the random choice as compterChoice
+      return computerChoice
+    }
+
+    const gameChoices = ["rock", "paper", "scissors"];
+
+
+    // playRound is a function that plays a single round of R/P/S between playerSelection and computerChoice=getComputerChoice
+    function playRound(playerSelection, computerChoice) {
+      // getComputerChoice is a function that picks a random rock/paper/scissor(R/P/S) for the computer and returns the computerChoice
+
+        // playerSelectionLower makes the playerSelection string lower case
+        playerSelectionLower = playerSelection.toLowerCase();
+        if (playerSelectionLower === "rock" && computerChoice === "paper") {
+          result = "You lose... Paper beats rock";
+        } else if (playerSelectionLower === "rock" && computerChoice === "scissors") {
+          result = "You win! Rock beats scissors";
+        } else if (playerSelectionLower === "paper" && computerChoice === "rock") {
+          result = "You win! Paper beats rock";
+        } else if (playerSelectionLower === "paper" && computerChoice === "scissors") {
+          result = "You lose... Scissors beats paper";
+        } else if (playerSelectionLower === "scissors" && computerChoice === "paper") {
+          result = "You win! Scissors beats paper";
+        } else if (playerSelectionLower === "scissors" && computerChoice === "rock") {
+          result = "You lose... rock beats scissors";
+        } else {
+          result = "Tie!";
+        }
+        return result;
+      }
+
+
+    const playerSelection = "rock";
+    
+
+
+    // game is a function that loops through the playRound function 5 times
+    function game() {
+      for (let i = 0; i < 5; i++) {
+        computerRoundPick = getComputerChoice(gameChoices);
+        console.log(playRound(playerSelection, computerRoundPick));
+ 
+      }
+    }
+    
+    game();
+    
+  
+  </script>
+</body>
+</html>
