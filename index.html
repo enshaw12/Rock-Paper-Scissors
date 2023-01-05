@@ -19,24 +19,25 @@
     const gameChoices = ["rock", "paper", "scissors"];
 
 
-    // playRound is a function that plays a single round of R/P/S between playerSelection and computerChoice=getComputerChoice
-    function playRound(playerSelection, computerChoice) {
-      // getComputerChoice is a function that picks a random rock/paper/scissor(R/P/S) for the computer and returns the computerChoice
+    // playRound is a function that plays a single round of R/P/S between playerSelection and computerChoice which is the return of getComputerChoice
+    function playRound(computerChoice) {
 
+        // playerSelection is the input from the user
+        let playerSelection = prompt("Choose rock, paper, or scissors.")
         // playerSelectionLower makes the playerSelection string lower case
         playerSelectionLower = playerSelection.toLowerCase();
         if (playerSelectionLower === "rock" && computerChoice === "paper") {
-          result = "You lose... Paper beats rock";
+          result = "Computer wins... Paper beats rock";
         } else if (playerSelectionLower === "rock" && computerChoice === "scissors") {
           result = "You win! Rock beats scissors";
         } else if (playerSelectionLower === "paper" && computerChoice === "rock") {
           result = "You win! Paper beats rock";
         } else if (playerSelectionLower === "paper" && computerChoice === "scissors") {
-          result = "You lose... Scissors beats paper";
+          result = "Computer wins... Scissors beats paper";
         } else if (playerSelectionLower === "scissors" && computerChoice === "paper") {
           result = "You win! Scissors beats paper";
         } else if (playerSelectionLower === "scissors" && computerChoice === "rock") {
-          result = "You lose... rock beats scissors";
+          result = "Computer wins... rock beats scissors";
         } else {
           result = "Tie!";
         }
@@ -44,20 +45,42 @@
       }
 
 
-    const playerSelection = "rock";
+    // need to delete this const playerSelection = "rock";
     
 
 
     // game is a function that loops through the playRound function 5 times
     function game() {
+      let computerRecord = 0;
+      let humanRecord = 0;
+      let tieRecord = 0;
+      let roundResult = '';
       for (let i = 0; i < 5; i++) {
         computerRoundPick = getComputerChoice(gameChoices);
-        console.log(playRound(playerSelection, computerRoundPick));
- 
+        roundResult = playRound(computerRoundPick);
+        console.log(roundResult);
+        if (roundResult.includes("Computer")) {
+          computerRecord += 1;
+        } else if (roundResult.includes("You")) {
+          humanRecord += 1;
+        } else {
+          tieRecord += 1;
+        }
+  
+      }
+      console.log("The computers final score is:", computerRecord + ',', "Your final score is:", humanRecord + ',', "The amount of tie games:", tieRecord);
+      if (computerRecord > humanRecord) {
+        console.log("The computer won...");
+      } else if (computerRecord < humanRecord) {
+        console.log("You win!");
+      } else {
+        console.log("Tie game!");
       }
     }
     
     game();
+
+  
     
   
   </script>
