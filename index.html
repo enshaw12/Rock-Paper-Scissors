@@ -54,17 +54,17 @@
       let computerRecord = 0;
       let humanRecord = 0;
       let tieRecord = 0;
-      let roundResult = '';
+      let roundResult;
       for (let i = 0; i < 5; i++) {
         computerRoundPick = getComputerChoice(gameChoices);
         roundResult = playRound(computerRoundPick);
         console.log(roundResult);
         if (roundResult.includes("Computer")) {
-          computerRecord += 1;
+          computerRecord ++;
         } else if (roundResult.includes("You")) {
-          humanRecord += 1;
+          humanRecord ++;
         } else {
-          tieRecord += 1;
+          tieRecord ++;
         }
   
       }
