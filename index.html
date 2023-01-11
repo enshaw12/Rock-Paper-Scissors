@@ -5,6 +5,14 @@
   <title>R/P/S Game</title>
 </head>
 <body>
+
+  <button id="rock">Rock</button>
+  <button id="paper">Paper</button>
+  <button id="scissors">Scissors</button>
+  <div id="results">Here are the results:</div>
+  <div id="score">Here is the current score:</div>
+  <div id="finalScore">Here is who won:</div>
+
   <script>
     // getComputerChoice is a function that picks a random rock/paper/scissor(R/P/S) for the computer and returns the computerChoice
     function getComputerChoice(choices) {
@@ -13,30 +21,80 @@
       // below uses the random index to pick an item from the array
       const computerChoice = choices[randomIndex];
       // returns the random choice as compterChoice
-      return computerChoice
+      return computerChoice;
     }
+    const choices = ["rock", "paper", "scissors"];
 
-    const gameChoices = ["rock", "paper", "scissors"];
+    const container = document.querySelector('#results');
+    const container2 = document.querySelector('#score');
+    const container3 = document.querySelector('#finalScore')
+
+    let computerRecord = 0;
+    let humanRecord = 0;
+    let tieRecord = 0;
+    let roundResult;
+    let gameResult;
+
+    // event listeners for buttons that calls playRound function with correct playerSelection ever time a button is clicked
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        playerSelection = button.id;
+        computerRoundPick = getComputerChoice(choices);
+        roundResult = playRound(computerRoundPick);
+        const content = document.createElement('div');
+        content.classList.add('content');
+        content.textContent = result;
+        container.appendChild(content);
+        if (roundResult.includes("Computer")) {
+          computerRecord ++;
+        } else if (roundResult.includes("You")) {
+          humanRecord ++;
+        } else {
+          tieRecord ++;
+        }
+        const calc = document.createElement('div');
+        calc.classList.add('score');
+        calc.textContent = "Computer record is:" + computerRecord + " Human record is:" + humanRecord;
+        container2.appendChild(calc);
+        
+        if (computerRecord === 5 || humanRecord === 5) {
+          if (computerRecord == 5) {
+            gameResult = "The computer won... better luck next time";
+          } else if (humanRecord === 5) {
+            gameResult = "You won! Try again by refreshing the page.";
+          }
+          const endGameMessage = document.createElement('div');
+          endGameMessage.textContent = gameResult;
+          container3.appendChild(endGameMessage);
+        }
+      })
+    })
+
+
+
+
+
+
+   
 
 
     // playRound is a function that plays a single round of R/P/S between playerSelection and computerChoice which is the return of getComputerChoice
     function playRound(computerChoice) {
 
         // playerSelection is the input from the user
-        let playerSelection = prompt("Choose rock, paper, or scissors.")
         // playerSelectionLower makes the playerSelection string lower case
-        playerSelectionLower = playerSelection.toLowerCase();
-        if (playerSelectionLower === "rock" && computerChoice === "paper") {
+        if (playerSelection === "rock" && computerChoice === "paper") {
           result = "Computer wins... Paper beats rock";
-        } else if (playerSelectionLower === "rock" && computerChoice === "scissors") {
+        } else if (playerSelection === "rock" && computerChoice === "scissors") {
           result = "You win! Rock beats scissors";
-        } else if (playerSelectionLower === "paper" && computerChoice === "rock") {
+        } else if (playerSelection === "paper" && computerChoice === "rock") {
           result = "You win! Paper beats rock";
-        } else if (playerSelectionLower === "paper" && computerChoice === "scissors") {
+        } else if (playerSelection === "paper" && computerChoice === "scissors") {
           result = "Computer wins... Scissors beats paper";
-        } else if (playerSelectionLower === "scissors" && computerChoice === "paper") {
+        } else if (playerSelection === "scissors" && computerChoice === "paper") {
           result = "You win! Scissors beats paper";
-        } else if (playerSelectionLower === "scissors" && computerChoice === "rock") {
+        } else if (playerSelection === "scissors" && computerChoice === "rock") {
           result = "Computer wins... rock beats scissors";
         } else {
           result = "Tie!";
@@ -45,7 +103,6 @@
       }
 
 
-    // need to delete this const playerSelection = "rock";
     
 
 
@@ -56,7 +113,7 @@
       let tieRecord = 0;
       let roundResult;
       for (let i = 0; i < 5; i++) {
-        computerRoundPick = getComputerChoice(gameChoices);
+        computerRoundPick = getComputerChoice(choices);
         roundResult = playRound(computerRoundPick);
         console.log(roundResult);
         if (roundResult.includes("Computer")) {
@@ -78,7 +135,7 @@
       }
     }
     
-    game();
+   // game();
 
   
     
